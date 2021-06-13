@@ -2,8 +2,10 @@ using System;
 
 namespace Chaiwatmat.TennisGame.ScoreRules
 {
-    public interface ScoreRule{
+    public interface IScoreRule
+    {
         bool IsMatchRule();
+
         string SpeakScore();
     }
 }
