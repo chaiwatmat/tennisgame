@@ -1,3 +1,5 @@
+using System;
+
 namespace Chaiwatmat.TennisGame.ScoreRules
 {
     public class AdvantageRule : IScoreRule
@@ -11,12 +13,10 @@ namespace Chaiwatmat.TennisGame.ScoreRules
             _player2Score = player2Score;
         }
 
-        public bool IsMatchRule() => Player1Advantage() || Player2Advantage();
+        public bool IsMatchRule() => AdvantageScore();
 
-        public string SpeakScore() => Player1Advantage() ? "advantage-forty" : "forty-advantage";
+        public string SpeakScore() => _player1Score > _player2Score ? "advantage-forty" : "forty-advantage";
 
-        private bool Player1Advantage() => _player1Score >= 4 && _player1Score - 1 == _player2Score;
-
-        private bool Player2Advantage() => _player2Score >= 4 && _player2Score - 1 == _player1Score;
+        private bool AdvantageScore() => (_player1Score >= 4 || _player2Score >= 4) && Math.Abs(_player1Score - _player2Score) == 1;
     }
 }

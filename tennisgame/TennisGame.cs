@@ -44,13 +44,24 @@ namespace Chaiwatmat.TennisGame
 
         public Player GetWinner()
         {
-            var isGameEnd = _player1Score >= 4 && _player1Score - 2 >= _player2Score;
-            if (!isGameEnd)
+            if (WinWithNoDeuce() || WinWithDeuce())
             {
-                return null;
+                return _player1Score > _player2Score ? _player1 : _player2;
             }
 
-            return _player1Score > _player2Score ? _player1 : _player2;
+            return null;
+        }
+
+        private bool WinWithNoDeuce()
+        {
+            return (_player1Score >= 4 || _player2Score >= 4) && (_player1Score <= 3 || _player2Score <= 3);
+        }
+
+        private bool WinWithDeuce()
+        {
+            var diffScore = Math.Abs(_player1Score - _player2Score);
+
+            return (_player1Score >= 4 || _player2Score >= 4) && diffScore >= 2;
         }
     }
 }
